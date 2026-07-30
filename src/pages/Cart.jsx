@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useCart } from '../CartContext'; // تأكد من ضبط مسار الملف
+import { useCart } from '../CartContext';
 import { Link } from 'react-router-dom';
 
 export default function Cart() {
   const { cart, updateQuantity, removeFromCart, totalPrice, clearCart } = useCart();
   const [customerInfo, setCustomerInfo] = useState({ name: '', phone: '', address: '' });
 
-  // ⚠️ ضع رقم الواتساب الخاص بك هنا بالصيغة الدولية (بدون + أو أصفار زيادات)
   const WHATSAPP_NUMBER = "201091321859"; 
 
   const handleCheckout = (e) => {
