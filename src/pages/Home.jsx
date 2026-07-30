@@ -11,7 +11,8 @@ export default function Home() {
       {/* ---- Hero ---- */}
       <section style={{ position: 'relative', height: '78vh', minHeight: 480, overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0 }}>
-          <Hero3D />
+          {/* <Hero3D /> */}
+
         </div>
         <div
           style={{
