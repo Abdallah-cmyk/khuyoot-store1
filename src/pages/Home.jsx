@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import Hero3D from '../components/Hero3D.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import { products } from '../data/products.js';
 
@@ -9,16 +8,12 @@ export default function Home() {
   return (
     <div>
       {/* ---- Hero ---- */}
-      <section style={{ position: 'relative', height: '78vh', minHeight: 480, overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0 }}>
-          {/* <Hero3D /> */}
-
-        </div>
+      <section style={{ position: 'relative', height: '78vh', minHeight: 480, overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'radial-gradient(circle at 30% 50%, transparent 0%, var(--bg) 78%)',
+            background: 'radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.15) 0%, var(--bg) 78%)',
             pointerEvents: 'none',
           }}
         />
