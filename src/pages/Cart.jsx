@@ -7,7 +7,7 @@ export default function Cart() {
   const [customerInfo, setCustomerInfo] = useState({ name: '', phone: '', address: '' });
 
   // ⚠️ ضع رقم الواتساب الخاص بك هنا بالصيغة الدولية (بدون + أو أصفار زيادات)
-  const WHATSAPP_NUMBER = "201000000000"; 
+  const WHATSAPP_NUMBER = "201091321859"; 
 
   const handleCheckout = (e) => {
     e.preventDefault();
