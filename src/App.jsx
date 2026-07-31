@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './ThemeContext.jsx';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import WhatsAppButton from './components/WhatsAppButton.jsx';
@@ -26,6 +27,7 @@ export default function App() {
       <Footer />
       <WhatsAppButton />
       <AIChat /> {/* 👈 2. تم إضافة مكون الشات العائم هنا */}
+      <SpeedInsights />
     </ThemeProvider>
   );
 }
