@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// ضع مفتاح Gemini الخاص بك هنا (الذي يبدأ بـ AIzaSy)
+const GEMINI_API_KEY = 'ضع_مفتاح_API_الخاص_بك_هنا';
+
 export default function AIChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -18,22 +21,39 @@ export default function AIChat() {
     setLoading(true);
 
     try {
-      // إرسال الطلب إلى السيرفر الخفي/الباك إند
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userText }),
-      });
-      const data = await response.json();
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [
+              {
+                role: 'user',
+                parts: [
+                  {
+                    text: `أنت مساعد متجر خيوط للملابس (Khuyoot Store). أجب بأسلوب راقٍ وودود ومختصر باللغة العربية. السؤال: ${userText}`
+                  }
+                ]
+              }
+            ]
+          })
+        }
+      );
 
-      setMessages((prev) => [
-        ...prev,
-        { sender: 'bot', text: data.reply || 'تم استلام سؤالك!' }
-      ]);
+      const data = await response.json();
+      
+      if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+        const botReply = data.candidates[0].content.parts[0].text;
+        setMessages((prev) => [...prev, { sender: 'bot', text: botReply }]);
+      } else {
+        setMessages((prev) => [...prev, { sender: 'bot', text: 'عذراً، لم أستطع فهم الطلب بشكل صحيح.' }]);
+      }
     } catch (err) {
+      console.error(err);
       setMessages((prev) => [
         ...prev,
-        { sender: 'bot', text: 'عذراً، حدث خطأ في الاتصال بالمساعد.' }
+        { sender: 'bot', text: 'عذراً، حدث خطأ في الاتصال بالذكاء الاصطناعي.' }
       ]);
     } finally {
       setLoading(false);
@@ -112,7 +132,7 @@ export default function AIChat() {
                 {m.text}
               </div>
             ))}
-            {loading && <div style={{ color: '#888', fontSize: '12px' }}>جاري الكتابة...</div>}
+            {loading && <div style={{ color: '#d4af37', fontSize: '12px' }}>جاري التفكير...</div>}
           </div>
 
           {/* حقل الإدخال */}
@@ -135,6 +155,7 @@ export default function AIChat() {
             />
             <button
               type="submit"
+              disabled={loading}
               style={{
                 backgroundColor: '#d4af37',
                 color: '#000',
